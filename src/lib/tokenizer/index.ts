@@ -19,7 +19,7 @@ import {
     type Attribute,
     type Location,
 } from '../common/token.js';
-import { htmlDecodeTree, EntityDecoder, DecodingMode } from 'entities/decode';
+import { htmlDecodeTree, EntityDecoder, DecodingMode } from '../vendor/entities.js';
 import { ERR, type ParserErrorHandler } from '../common/error-codes.js';
 import { TAG_ID, getTagID } from '../common/html.js';
 
