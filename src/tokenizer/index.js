@@ -1,7 +1,7 @@
 import { Preprocessor } from './preprocessor.js';
 import { CODE_POINTS as $, SEQUENCES as $$, REPLACEMENT_CHARACTER, isSurrogate, isUndefinedCodePoint, isControlCodePoint, } from '../common/unicode.js';
 import { TokenType, getTokenAttr, } from '../common/token.js';
-import { htmlDecodeTree, EntityDecoder, DecodingMode } from '../vendor/entities.js';
+import { htmlDecodeTree, EntityDecoder, DecodingMode } from '../entities/entities.js';
 import { ERR } from '../common/ERR.js';
 import { TAG_ID, getTagID } from '../common/html/i.js';
 

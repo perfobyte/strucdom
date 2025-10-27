@@ -1,0 +1,11 @@
+export {default as EntityDecoder} from './EntityDecoder/i.js';
+export {default as decode_base_64} from './decode_base_64.js';
+export {default as determine_branch} from './determine_branch.js';
+export {default as escape_attribute} from './escape_attribute.js';
+export {default as escape_text} from './escape_text.js';
+export {default as get_escaper} from './get_escaper.js';
+export {default as is_ascii_alpha_numeric} from './is_ascii_alpha_numeric.js';
+export {default as is_entity_in_attribute_invalid_end} from './is_entity_in_attribute_invalid_end.js';
+export {default as is_hexadecimal_character} from './is_hexadecimal_character.js';
+export {default as is_number} from './is_number.js';
+export {default as replace_code_point} from './replace_code_point.js';
