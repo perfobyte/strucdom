@@ -1,9 +1,0 @@
-{
-    "entryPoints": ["packages/*"],
-    "out": "docs/build",
-    "name": "parse5",
-    "readme": "README.md",
-    "emit": "docs",
-    "excludeInternal": true,
-    "entryPointStrategy": "packages"
-}

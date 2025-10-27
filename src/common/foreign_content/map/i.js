@@ -1,0 +1,4 @@
+export {default as EXITS_FOREIGN_CONTENT} from './EXITS_FOREIGN_CONTENT.js';
+export {default as SVG_ATTRS_ADJUSTMENT_MAP} from './SVG_ATTRS_ADJUSTMENT_MAP.js';
+export {default as SVG_TAG_NAMES_ADJUSTMENT_MAP} from "./SVG_TAG_NAMES_ADJUSTMENT_MAP.js";
+export {default as XML_ATTRS_ADJUSTMENT_MAP} from './XML_ATTRS_ADJUSTMENT_MAP.js';
