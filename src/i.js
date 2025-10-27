@@ -6,7 +6,7 @@ export { Parser } from './parser/index.js';
 export { serialize, serializeOuter } from './serializer/index.js';
 export { ERR as ErrorCodes } from './common/ERR.js';
 export * as foreignContent from './common/foreign_content/i.js';
-export * as html from './common/html.js';
+export * as html from './common/html/i.js';
 export * as Token from './common/token.js';
 export { Tokenizer, TokenizerMode } from './tokenizer/index.js';
 

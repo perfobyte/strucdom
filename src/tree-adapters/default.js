@@ -1,4 +1,4 @@
-import { DOCUMENT_MODE } from '../common/html.js';
+import { DOCUMENT_MODE } from '../common/html/i.js';
 
 export var defaultTreeAdapter = {
     createDocument() {

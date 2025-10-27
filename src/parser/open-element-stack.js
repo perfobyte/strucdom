@@ -1,4 +1,4 @@
-import { TAG_ID as $, NS, NUMBERED_HEADERS } from '../common/html.js';
+import { TAG_ID as $, NS, NUMBERED_HEADERS } from '../common/html/i.js';
 
 export var
     IMPLICIT_END_TAG_REQUIRED = new Set([$.DD, $.DT, $.LI, $.OPTGROUP, $.OPTION, $.P, $.RB, $.RP, $.RT, $.RTC]),

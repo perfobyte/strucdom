@@ -3,7 +3,7 @@ import { CODE_POINTS as $, SEQUENCES as $$, REPLACEMENT_CHARACTER, isSurrogate, 
 import { TokenType, getTokenAttr, } from '../common/token.js';
 import { htmlDecodeTree, EntityDecoder, DecodingMode } from '../vendor/entities.js';
 import { ERR } from '../common/ERR.js';
-import { TAG_ID, getTagID } from '../common/html.js';
+import { TAG_ID, getTagID } from '../common/html/i.js';
 
 export var
     State = {

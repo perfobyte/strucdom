@@ -1,4 +1,4 @@
-import { TAG_NAMES as $, NS, hasUnescapedText } from '../common/html.js';
+import { TAG_NAMES as $, NS, hasUnescapedText } from '../common/html/i.js';
 import { escapeText, escapeAttribute } from '../vendor/entities.js';
 import { defaultTreeAdapter } from '../tree-adapters/default.js';
 

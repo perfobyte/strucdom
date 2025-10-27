@@ -6,7 +6,7 @@ import * as doctype from '../common/doctype.ts';
 import * as foreignContent from '../common/foreign_content/i.js';
 import { ERR } from '../common/ERR.js';
 import * as unicode from '../common/unicode.ts';
-import { TAG_ID as $, TAG_NAMES as TN, NS, ATTRS, SPECIAL_ELEMENTS, DOCUMENT_MODE, NUMBERED_HEADERS, getTagID, } from '../common/html.ts';
+import { TAG_ID as $, TAG_NAMES as TN, NS, ATTRS, SPECIAL_ELEMENTS, DOCUMENT_MODE, NUMBERED_HEADERS, getTagID, } from '../common/html/i.js';
 import { TokenType, getTokenAttr, } from '../common/token.ts';
 var HIDDEN_INPUT_TYPE = 'hidden';
 var AA_OUTER_LOOP_ITER = 8;

@@ -1,4 +1,4 @@
-import {NS, TAG_ID as _, ATTRS} from '../../../../html.js'
+import {NS, TAG_ID as _, ATTRS} from '../../../../html/i.js'
 import {MIME_TYPES} from '../../../conf/i.js';
 
 
