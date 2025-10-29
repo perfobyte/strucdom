@@ -1,6 +1,6 @@
 import { CODE_POINTS as $, getSurrogatePairCodePoint, isControlCodePoint, isSurrogate, isSurrogatePair, isUndefinedCodePoint, } from '../common/unicode.ts';
 import { ERR } from '../common/ERR.js';
-var DEFAULT_BUFFER_WATERLINE = 1 << 16;
+
 export class Preprocessor {
     constructor(handler) {
         this.handler = handler;

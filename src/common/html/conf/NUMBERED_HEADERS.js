@@ -1,12 +1,12 @@
-import {TAG_ID} from "./TAG/i.js";
+import {TAG_ID as _} from "./TAG/i.js";
 
 export default (
     new Set([
-        TAG_ID.H1,
-        TAG_ID.H2,
-        TAG_ID.H3,
-        TAG_ID.H4,
-        TAG_ID.H5,
-        TAG_ID.H6
+        _.H1,
+        _.H2,
+        _.H3,
+        _.H4,
+        _.H5,
+        _.H6,
     ])
 );
