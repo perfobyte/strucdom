@@ -1,5 +1,8 @@
 export default (
-    function(unclosed) {
+    function(
+        unclosed,
+        separator,
+    ) {
         var
             childs = this.children,
 
@@ -15,13 +18,27 @@ export default (
             nodeType = 0
         ;
         for (;i<l;i++) {
-            if ((nodeType = (node = childs[i]).type) === TEXT_NODE) {
-                inside += node.outer_html(unclosed);
+            if (
+                (nodeType = (node = childs[i]).type) === TEXT_NODE
+            ) {
+                inside += (
+                    node.outer_html(unclosed)
+                    + separator
+                );
             }
-            else if (nodeType === ELEMENT_NODE) {
-                inside += node.text_content(unclosed);
+            else if (
+                nodeType === ELEMENT_NODE
+            ) {
+                inside += (
+                    node.text_content(unclosed,separator)
+                    + separator
+                );
             }
         }
-        return inside;
+        return (
+            inside.endsWith(separator)
+            ? inside.substring(0, (inside.length - separator.length))
+            : inside
+        );
     }
 );

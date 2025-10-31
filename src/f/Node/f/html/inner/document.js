@@ -1,14 +1,15 @@
 
 
 export default (
-    (document, unclosed) => {
+    function(unclosed) {
         var 
             i = 0,
-            l = document.length,
+            childs = this.children,
+            l = childs.length,
             v = ""
         ;
         for(;i<l;i++){
-            v += document[i].outer_html(unclosed);
+            v += childs[i].outer_html(unclosed);
         };
         return v;
     }

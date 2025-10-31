@@ -2,7 +2,7 @@
 
 
 export default (
-    function(name, value) {
+    function(name) {
         
         var
             childs = this.children,
@@ -12,33 +12,20 @@ export default (
 
             i = 0,
             l = childs.length,
+            v = null,
 
             node = null
         ;
-        a: {
-            for (;i<l;i++) {
-                if (
-                    ((node=childs[i]).type === ATTRIBUTE_NODE)
-                    &&
-                    (node.name === name)
-                ) {
-                    node.data = value;
-                    node.specified ||= true;
-                    break a;
-                }
-            };
-            childs.push(new Node(
-                ATTRIBUTE_NODE,
-                name,
-                
-                null,
-                this,
-                this.ownerDocument,
-
-                value,
-                true,
-            ));
-        }
-        return undefined;
+        for (;i<l;i++) {
+            if (
+                ((node=childs[i]).type === ATTRIBUTE_NODE)
+                &&
+                (node.name === name)
+            ) {
+                v = node.data;
+                break;
+            }
+        };
+        return v;
     }
 );

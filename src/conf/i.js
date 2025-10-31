@@ -8,3 +8,4 @@ export {default as SpaceCharacters} from './SpaceCharacters.js';
 export {default as QuotesCharacters} from './QuotesCharacters.js';
 
 export {default as RawValueTags} from './RawValueTags.js';
+export {default as ResultCode} from './ResultCode.js';

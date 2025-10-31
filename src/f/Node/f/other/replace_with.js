@@ -25,7 +25,9 @@ export default (
                     )[
                         childs
                         .indexOf(this)
-                    ] = node
+                    ] = (
+                        node
+                    )
                 )
             )
             : null

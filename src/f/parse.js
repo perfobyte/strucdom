@@ -8,53 +8,53 @@ import {
 // 0 success;
 // 1 tag is not opened;
 
-
-
 export default (
-    (v,d, i,l, unclosed, space, quotes, empty_attr_value, Node, Array) => {
+    (v,document, i,l, unclosed, space, quotes, Node, Array) => {
         var
             result_code = 0,
-            c = "",
-            tag_name = "",
-
-            value = "",
-
-            from = i,
-
             j = 0,
             q = 0,
-            quote = "",
-
+            index = 0,
+            from = i,
             IN = TEXT_NODE,
-            current_parent = null,
-            current_childs = d,
 
+            attr_with_value = false,
+            is_end_tag = false,
+            is_tag_end = false,
             is_unclosed = false,
+
+            current_parent = document,
+            current_childs = document.children,
 
             node = null,
 
-            index = 0,
-            in_quote = false,
-
+            c = "",
+            tag_name = "",
+            value = "",
+            quote = "",
             second_c = ""
         ;
+
+        document.specified = false;
+
         a: while(i<l) {
             
             c = v[i];
 
             if (IN === TEXT_NODE) {
+
                 if (c === "<") {
-                    console.log(v.substring(i));
 
-
-                    (i>from) && (
+                    (i > from)
+                    &&
+                    (
                         current_childs.push(new Node(
                             TEXT_NODE,
                             "#text",
                             
                             null,
                             current_parent,
-                            d,
+                            document,
 
                             v.substring(from,i),
                             false,
@@ -88,7 +88,7 @@ export default (
                             
                             null,
                             current_parent,
-                            d,
+                            document,
 
                             v.substring(from,i),
                             false,
@@ -96,7 +96,9 @@ export default (
 
                         from = (i += 3);
                     }
-                    else if (second_c === "/") {
+                    else if (
+                        second_c === "/"
+                    ) {
                         from = (i += 2);
                         while ((i<l)&&(v[i]!==">")) {i++;};
 
@@ -116,206 +118,230 @@ export default (
                             )
                         ) {
                             
-                            current_childs =
-                                (current_parent = current_parent.parent)
-                                ? current_parent.children
-                                : d
-                            ;
-                        }
-                        else {
-                            current_childs =
+                            current_childs = (
                                 (
                                     current_parent =
                                         current_parent
-                                        ? current_parent.parent
-                                        : null
+                                        .parent
                                 )
-                                ? current_parent.children
-                                : d
-                            ;
-                            // result_code = 1;
-                            // break a;
+                                .children
+                            );
+                        }
+                        else {
+                            result_code = 1;
+                            break a;
                         }
 
                         from = (++i);
-                        IN = TEXT_NODE;
-                        continue;
                     }
                     else {
-                        i++;
-
-                        while ((i<l)&&(space.includes(v[i]))) {i++;}
-
-                        from = i;
-
-                        while (
-                            (i < l)
-                            &&
-                            (!(space.includes(c = v[i])))
-                            &&
-                            (c !== ">")
-                            &&
-                            (c !== "/")
-                        ) {
+                        from = ++i;
+                        
+                        while (i < l) {
+                            c = v[i];
+                            if ((c === ">") || (c === "/") || space.includes(c)) {
+                                break;
+                            };
                             i++;
-                        };
-
-
-                        current_parent = new Node(
-                            (ELEMENT_NODE),
-                            (tag_name = v.substring(from,i).toLowerCase()),
+                        }
+                        tag_name = v.substring(from, i).toLowerCase();
+                        
+                        is_tag_end = (v[i] === ">");
+                        is_end_tag = (v[i] === "/" && v[i+1] === ">");
+                        
+                        node = new Node(
+                            ELEMENT_NODE,
+                            tag_name,
                             
                             (new Array()),
                             current_parent,
-                            d,
+                            document,
 
                             "",
                             false,
                         );
-                        current_childs.push(current_parent);
-                        current_childs = current_parent.children;
+                        current_childs.push(node);
 
                         is_unclosed = unclosed.includes(tag_name);
-
+                        
+                        current_childs = (current_parent = node).children;
                         IN = ELEMENT_NODE;
                     }
                 }
                 else {
+                    // text:
                     i++;
                 }
             }
-            // (IN === ELEMENT_NODE)
+            
             else {
-                if (in_quote) {
-                    if (c === quote) {in_quote = false};
-                    i++;
-                    continue;
-                }
-                if (!in_quote && quotes.includes(c)) {
-                    quote = c;
-                    in_quote = true;
-                    i++;
-                    continue;
-                }
+                // in element:
+                
+                while ((i < l) && space.includes(v[i])) i++;
 
-                while ((i<l)&&(space.includes(v[i]))) {i++;}
-                c = v[i];
-
+                is_end_tag = ((c = v[i]) === '/') && (v[i+1] === ">");
+                is_tag_end = (c === ">");
+                
                 if (
-                    (c === '/') &&
-                    (v[i+1] === ">")
+                    is_end_tag
+                    ||
+                    is_tag_end
                 ) {
+                    is_unclosed
+                    &&
+                    (
+                        (current_childs = ((current_parent = current_parent.parent).children)),
+                        (is_unclosed = false)
+                    );
                     
-                    current_childs =
-                        (current_parent = current_parent.parent)
-                        ? current_parent.children
-                        : d
-                    ;
-                    
-
-                    from = (i += 2);
-                    IN = TEXT_NODE;
-                }
-
-                else if (
-                    (c === ">")
-                ) {
-                    if (is_unclosed) {
-                        
-                        current_childs =
-                            (current_parent = current_parent.parent)
-                            ? current_parent.children
-                            : d
-                        ;
-                    }
-
-                    from = ++i;
+                    from = (i += (is_end_tag ? 2: 1));
                     IN = TEXT_NODE;
                 }
                 else {
-                    
                     from = i;
-                    while (
-                        (i<l)
-                        &&
-                        ((!space.includes(c = v[i])))
-                        &&
-                        (c !== "=")
-                        &&
-                        (c !== ">")
-                        &&
-                        (c !== "/")
-                    ) {i++;}
-                    j = i;
+                    
+                    while (i < l) {
 
-                    while ((i<l)&&(space.includes(v[i]))) {i++;}
-
-                    if ((c = v[i]) === "=") {
+                        if (
+                            ((c = v[i]) === "=") ||
+                            (c === ">") ||
+                            (c === "/") ||
+                            space.includes(c)
+                        ) {
+                            break
+                        };
                         i++;
-                        while ((i<l)&&(space.includes(v[i]))) {i++;}
-                        
-                        if ((c=v[i]) === ">") {
-                            value = empty_attr_value;
-                            
-                            i++;
-                            IN = TEXT_NODE;
+                    }
+                    j = i;
+                    attr_with_value = (v[i] === "=");
+
+                    if (attr_with_value) {
+                        i++;
+                        while ((i < l) && space.includes(v[i])) i++;
+
+                        if (
+                            (
+                                index =
+                                    quotes
+                                    .indexOf(
+                                        c = v[i]
+                                    )
+                            ) === -1
+                        ) {
+                            q = i++;
+
+                            is_end_tag =
+                            is_tag_end =
+                                false
+                            ;
+
+                            while (
+                                (is_tag_end = ((c = v[i]) === ">")),
+                                (is_end_tag = (c === '/') && (v[i+1] === ">")),
+
+                                (!is_tag_end)
+                                &&
+                                (!is_end_tag)
+                                &&
+                                (i < l)
+                                &&
+                                ((!(space.includes(c))))
+                            ) {
+                                i++;
+                            };
+
+                            value = v.substring(q,i);
                         }
                         else {
-                            if (
-                                (index = quotes.indexOf(c)) === -1
-                            ) {
-                                q = i;
-                                while (
-                                    (i<l)
-                                    &&
-                                    (!space.includes(c = v[i]))
-                                    &&
-                                    (c !== ">")
-                                    &&
-                                    (c !== "/")
-                                ) {i++;}
-                                
-                            }
-                            else {
-                                quote = quotes[index];
+                            q = ++i;
+                            quote = quotes[index];
 
-                                q = ++i;
-                                while ((i<l)&&(v[i]!==quote)) {i++;}
-                            }
+                            while ((i < l) && (v[i] !== quote)) i++;
                             value = v.substring(q,i);
-                            i++;
+
+                            if ((i < l) && (v[i] === quote)) i++;
+                            while ((i < l) && space.includes(v[i])) i++;
+
+                            is_tag_end = ((c = v[i]) === ">");
+                            is_end_tag = (c === "/" && v[i+1] === ">");
                         }
+
+                        current_childs.push(
+                            new Node(
+                                ATTRIBUTE_NODE,
+                                v.substring(from,j).toLowerCase(),
+                                
+                                null,
+                                current_parent,
+                                document,
+        
+                                value,
+                                false,
+                            )
+                        );
+
+                        if (
+                            is_end_tag
+                            ||
+                            is_tag_end
+                        ) {
+                            if (is_end_tag) {
+                                current_childs = (current_parent = current_parent.parent).children;
+                            } else if (is_unclosed) {
+                                current_childs = (current_parent = current_parent.parent).children;
+                                is_unclosed = false;
+                            }
+                            from = (i += (is_end_tag ? 2 : 1));
+                            IN = TEXT_NODE;
+                            continue;
+                        }
+                    }
+                    else if (
+                        is_end_tag
+                        ||
+                        is_tag_end
+                    ) {
+                        is_unclosed
+                        &&
+                        (
+                            (current_childs = ((current_parent = current_parent.parent).children)),
+                            (is_unclosed = false)
+                        );
+                        
+                        from = (i += (is_end_tag ? 2: 1));
+                        IN = TEXT_NODE;
                     }
                     else {
-                        if (c === ">") {
-                            i++;
-                            IN = TEXT_NODE;
-                        }
-                        value = empty_attr_value;
+                        current_childs.push(
+                            new Node(
+                                ATTRIBUTE_NODE,
+                                v.substring(from, j).toLowerCase(),
+                                null,
+                                current_parent,
+                                document,
+                                "",
+                                false,
+                            )
+                        );
                     }
-                    
-                    (j > from)
-                    &&
-                    current_childs.push(
-                        new Node(
-                            ATTRIBUTE_NODE,
-                            v.substring(from,j).toLowerCase(),
-                            
-                            null,
-                            current_parent,
-                            d,
-    
-                            value,
-                            false,
-                        )
-                    );
                 };
             }
-
-            if (i === from) {
-                i++;
-            }
         };
+
+        ((IN === TEXT_NODE) && (i > from))
+        &&
+        (
+            current_childs.push(new Node(
+                TEXT_NODE,
+                "#text",
+                null,
+                current_parent,
+                document,
+                v.substring(from, i),
+                false
+            ))
+        );
+          
         return result_code;
     }
 );
