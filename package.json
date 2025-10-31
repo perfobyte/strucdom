@@ -1,11 +1,9 @@
 {
-    "name": "strucdom",
+    "name": "@perfobyte/strucdom",
     "type": "module",
     "description": "HTML parser and serializer.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "PerfoByte <contact@perfobyte.com> (https://github.com/perfobyte)",
-    "contributors": "https://github.com/perfobyte/strucdom/graphs/contributors",
-    "homepage": "https://strucdom.perfobyte.com",
     "keywords": [
         "html",
         "parser",
@@ -23,11 +21,13 @@
         "parse",
         "serialize"
     ],
+    
     "license": "MIT",
     "main": "src/1.js",
     "module": "src/1.js",
     "exports": {
         ".": {
+            "import": "./src/1.js",
             "default": "./src/1.js"
         }
     },
@@ -36,11 +36,16 @@
         "url": "git://github.com/perfobyte/strucdom.git"
     },
     "files": [
-        "./src/1.js"
+        "src/1.js",
+        "README.md",
+        "LICENSE.entities",
+        "LICENSE",
+        "NOTICE"
     ],
-    "devDependencies": {
-        "@babel/cli": "^7.28.3",
-        "@babel/core": "^7.28.5",
-        "@babel/preset-typescript": "^7.28.5"
-    }
+    "sideEffects": false,
+    "bugs": {
+        "url": "https://github.com/perfobyte/strucdom/issues"
+    },
+    "homepage": "https://github.com/perfobyte/strucdom#readme",
+    "publishConfig": { "access": "public" }
 }

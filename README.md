@@ -18,12 +18,18 @@ import {
 
     NodeType,
 
+    Node,
+    parse,
+
     RawValueTags,
     SpaceCharacters,
     UnclosedHtmlTags,
     QuotesCharacters,
     HtmlTags,
     ResultCode,
+
+    create_document,
+
 } from './0.js';
 
 console.dir(NodeType); // { DOCUMENT_NODE: 9, ELEMENT_NODE: 1, ... }
@@ -105,6 +111,7 @@ console.dir(
 import {NodeType} from "strucdom"
 
 var
+    document = create_document(new Array()),
     node = document.children[1],
 
     is_element = false,
@@ -133,15 +140,15 @@ console.log(is_comment = (type === NodeType.COMMENT_NODE)); // false
 
 name = node.name;
 
-if (is_element) && console.dir(name);
+if (is_element) console.dir(name);
 // "div"
 // * or an another arbitrary value that does not include a space, a slash character, ">", "<"
 
 
-if (is_document) && console.dir(name); // "#document"
-if (is_attribute) && console.dir(name); // "new_value" or an another arbitrary value
-if (is_text) && console.dir(name); // "#text"
-if (is_comment) && console.dir(name); // "#comment"
+if (is_document) console.dir(name); // "#document"
+if (is_attribute) console.dir(name); // "new_value" or an another arbitrary value
+if (is_text) console.dir(name); // "#text"
+if (is_comment) console.dir(name); // "#comment"
 
 
 // Children:
@@ -175,7 +182,8 @@ var
     node = create_document(document_childs), // document
     separator = " | ",
 
-    new_node = null
+    new_node = null,
+    unclosed = UnclosedHtmlTags
 ;
 
 node.text_content(UnclosedHtmlTags, separator); // ""
@@ -188,11 +196,18 @@ node.create_comment("comment value");
 node.create_attribute("key", "value");
 node.create_element("div", new Container());
 
-node.append_child(
-    new_node = node.create_text("hello_world")
+new_node = (
+    node.append_child(
+        node.create_text("hello_world")
+    )
 );
 
-new_mode === node.first_child() === node.last_child(); // true
+console.dir(
+    (new_node === node.first_child())
+    &&
+    (new_node === node.last_child())
+);
+// true
 
 node
 .first_child()
@@ -204,22 +219,39 @@ node.remove_child(new_node);
 // or:
 new_node.remove();
 
-node.first_child(); // null
-node.last_child(); // null
+console.dir(node.first_child() === null); // true
+console.dir(node.last_child() === null); // true
 
-node.has_child_nodes(); // true or false
+console.dir(
+    node.has_child_nodes()
+);
+// false
 
-node.append_child(node.create_element("div", new Container()));
+new_node = node.append_child(
+    node.create_element("div", new Container())
+);
+new_node.append_child(new_node.create_text("first_div_text"));
 
 new_node = node.create_element("div", new Container());
-
 new_node.append_child(new_node.create_text("hello_world"));
 
 node.append_child(new_node);
 
-node.last_child().previous_sibling().text_content(); // "hello_world"
+console.dir(
+    node
+    .first_child()
+    .next_sibling()
+    .text_content(unclosed,"") === "hello_world"
+);
+// true
 
-node.first_child().next_sibling() === new_mode; // true
+console.dir(
+    node
+    .last_child()
+    .previous_sibling()
+    .text_content(unclosed,"") === "first_div_text"
+);
+// true
 
 ```
 
@@ -227,17 +259,31 @@ node.first_child().next_sibling() === new_mode; // true
 ### Element methods:
 
 ```js
+import {
+    create_document,
+    UnclosedHtmlTags as unclosed,
+} from 'strucdom';
 
-var node = document.create_element("div",new Array());
+var
+    document = create_document(new Array()),
+    node = (
+        document.append_child(
+            document.create_element("div",new Array())
+        )
+    )
+;
 
+console.dir(node.outer_html(unclosed)); // '<div/>'
 node.set_attribute('key', "value");
-console.dir(
-    node.get_attribute("key")
-);
-// "value"
+
+console.dir(node.outer_html(unclosed)); // '<div key="value"/>'
+console.dir( node.get_attribute("key") ); // "value"
+
+node.remove_attribute("key");
+console.dir(node.outer_html(unclosed)); // '<div/>'
+console.log(node.get_attribute("key") === null) // true
 
 ```
-
 
 # Next updates:
 
