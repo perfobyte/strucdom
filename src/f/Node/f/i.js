@@ -11,6 +11,9 @@ export {default as _text_content} from './text_content/i.js';
 
 export * from "../../../conf/i.js";
 
+export {default as constructor} from '../i.js';
+
+
 export var
     quote_rgx = /"/g
 ;

@@ -1,10 +1,9 @@
 
 export default (
     function(value) {
+        var Node = this.constructor;
         return (
-            new (
-                this.constructor
-            )(
+            new Node(
                 this.COMMENT_NODE,
                 "#comment",
                 

@@ -3,10 +3,9 @@ import Node from '../../i.js';
 
 export default (
     function(name, children) {
+        var Node = this.constructor;
         return (
-            new (
-                this.constructor
-            )(
+            new Node(
                 this.ELEMENT_NODE,
                 name,
 

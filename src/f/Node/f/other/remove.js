@@ -1,5 +1,11 @@
 export default (
     function() {
-        return this.parent.remove_child(this);
+        var
+            parent = this.parent
+        ;
+        return (
+            parent && parent.remove_child(this),
+            undefined
+        );
     }
 );

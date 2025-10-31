@@ -4,7 +4,7 @@ export default (
             childs = this.children
         ;
         return (
-            childs[childs.length - 1]
+            childs[childs.length - 1] || null
         );
     }
 );

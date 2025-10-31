@@ -1,10 +1,9 @@
 
 export default (
     function(key, value) {
+        var Node = this.constructor;
         return (
-            new (
-                this.constructor
-            )(
+            new Node(
                 this.ATTRIBUTE_NODE,
                 key,
 

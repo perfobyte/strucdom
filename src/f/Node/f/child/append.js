@@ -13,7 +13,11 @@ export default (
                 node.parent = this
             )
             .children
-            .push(node)
-        )
+            .push(
+                node
+            ),
+
+            node
+        );
     }
 );
