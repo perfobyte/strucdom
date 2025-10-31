@@ -3,7 +3,7 @@
 ## Installation:
 
 ```sh
-npm i strucdom
+npm i @perfobyte/strucdom
 ```
 
 ## Imports:
@@ -108,7 +108,7 @@ console.dir(
 ## Structure:
 
 ```js
-import {NodeType} from "strucdom"
+import {NodeType} from "@perfobyte/strucdom"
 
 var
     document = create_document(new Array()),
@@ -173,7 +173,7 @@ node.specified;
 ### General:
 
 ```js
-import {create_document, UnclosedHtmlTags} from 'strucdom';
+import {create_document, UnclosedHtmlTags} from '@perfobyte/strucdom';
 
 var
     Container = Array,
@@ -262,7 +262,7 @@ console.dir(
 import {
     create_document,
     UnclosedHtmlTags as unclosed,
-} from 'strucdom';
+} from '@perfobyte/strucdom';
 
 var
     document = create_document(new Array()),

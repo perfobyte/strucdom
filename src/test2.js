@@ -19,7 +19,7 @@ import {
 
     create_document,
     
-} from './0.js';
+} from '@perfobyte/strucdom';
 
 var
     document = create_document(new Array()),
