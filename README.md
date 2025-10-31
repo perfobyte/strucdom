@@ -30,7 +30,7 @@ import {
 
     create_document,
 
-} from './0.js';
+} from '@perfobyte/strucdom';
 
 console.dir(NodeType); // { DOCUMENT_NODE: 9, ELEMENT_NODE: 1, ... }
 

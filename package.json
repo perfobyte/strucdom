@@ -2,7 +2,7 @@
     "name": "@perfobyte/strucdom",
     "type": "module",
     "description": "HTML parser and serializer.",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "PerfoByte <contact@perfobyte.com> (https://github.com/perfobyte)",
     "keywords": [
         "html",
