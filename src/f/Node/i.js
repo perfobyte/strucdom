@@ -1,20 +1,28 @@
 import * as f from './f/i.js';
 
 function Node(
-    nodeType,
-    nodeName,
-    childNodes,
-    parentNode,
-
+    type,
+    name,
+    
+    children,
+    parent,
     ownerDocument,
+
+    data,
+    specified,
 ) {
-    this.nodeType = nodeType;
-    this.nodeName = nodeName;
+    this.name = name;
 
-    this.childNodes = childNodes;
-    this.parentNode = parentNode;
-
+    this.children = children;
+    this.parent = parent;
     this.ownerDocument = ownerDocument;
+
+    this.data = data;
+    this.specified = specified;
+
+    this.inner_html = this._inner_html[this.type = type];
+    this.outer_html = this._outer_html[type];
+    this.text_content = this._text_content[type];
 };
 
 Node.prototype = f;

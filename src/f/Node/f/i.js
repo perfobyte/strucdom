@@ -1,24 +1,15 @@
+export * from './child/i.js';
+export * from './sibling/i.js';
 
-import {
-    firstChild,lastChild,
-    nextSibling,previousSibling,
-    hasChildNodes,
-} from '../../other/i.js';
+export * from './other/i.js';
+export * from './html/i.js';
 
-export {
-    firstChild,lastChild,
-    nextSibling,previousSibling,
-    hasChildNodes,
-};
+export * from './attribute/i.js';
+
+export {default as _text_content} from './text_content/i.js';
+
+export * from "../../../conf/i.js";
 
 export var
-    ELEMENT_NODE = 1,
-    ATTRIBUTE_NODE = 2,
-    TEXT_NODE = 3,
-    CDATA_SECTION_NODE = 4,
-    PROCESSING_INSTRUCTION_NODE = 7,
-    COMMENT_NODE = 8,
-    DOCUMENT_NODE = 9,
-    DOCUMENT_TYPE_NODE = 10,
-    DOCUMENT_FRAGMENT_NODE = 11
+    quote_rgx = /"/g
 ;
