@@ -8,6 +8,8 @@ export default (
 
             prev_parent = node.parent
         ;
+        
+
         return (
             (prev_parent)
             &&

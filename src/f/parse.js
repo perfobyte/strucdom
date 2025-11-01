@@ -108,12 +108,9 @@ export default (
                             (
                                 current_parent
                                 .name === (
-                                    tag_name = (
-                                        v
-                                        .substring(from, i)
-                                        .trim()
-                                        .toLowerCase()
-                                    )
+                                    v
+                                    .substring(from, i)
+                                    .trim()
                                 )
                             )
                         ) {
@@ -144,7 +141,7 @@ export default (
                             };
                             i++;
                         }
-                        tag_name = v.substring(from, i).toLowerCase();
+                        tag_name = v.substring(from, i);
                         
                         is_tag_end = (v[i] === ">");
                         is_end_tag = (v[i] === "/" && v[i+1] === ">");
@@ -162,7 +159,7 @@ export default (
                         );
                         current_childs.push(node);
 
-                        is_unclosed = unclosed.includes(tag_name);
+                        is_unclosed = unclosed.includes(tag_name.toLowerCase());
                         
                         current_childs = (current_parent = node).children;
                         IN = ELEMENT_NODE;
@@ -269,7 +266,7 @@ export default (
                         current_childs.push(
                             new Node(
                                 ATTRIBUTE_NODE,
-                                v.substring(from,j).toLowerCase(),
+                                v.substring(from,j),
                                 
                                 null,
                                 current_parent,
@@ -315,7 +312,7 @@ export default (
                         current_childs.push(
                             new Node(
                                 ATTRIBUTE_NODE,
-                                v.substring(from, j).toLowerCase(),
+                                v.substring(from, j),
                                 null,
                                 current_parent,
                                 document,

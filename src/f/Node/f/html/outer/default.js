@@ -31,9 +31,9 @@ export default (
             (inside = this.inner_html(unclosed))
             ? `${v}>${inside}</${this_name}>`
             : (
-                unclosed.includes(this_name)
+                unclosed.includes(this_name.toLowerCase())
                 ? `${v}>`
-                : `${v}/>`
+                : `${v}></${this_name}>`
             )
         );
     }

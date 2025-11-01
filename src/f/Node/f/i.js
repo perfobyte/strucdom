@@ -12,6 +12,8 @@ export {default as _text_content} from './text_content/i.js';
 export * from "../../../conf/i.js";
 
 export {default as constructor} from '../i.js';
+export {default as parse} from '../../parse.js';
+
 
 
 export var
